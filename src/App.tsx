@@ -324,7 +324,10 @@ export default function App() {
           categories={categories}
           stores={stores}
           sellers={sellers}
+          sales={sales}
+          audits={audits}
           onAddSale={handleAddSale}
+          onUpdateAudits={saveAuditsToStorage}
           onResetToHome={handleResetToHome}
           onInstallApp={handleInstallApp}
           showInstallButton={deferredPrompt !== null || !isAlreadyInstalled}
