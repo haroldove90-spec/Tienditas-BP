@@ -32,6 +32,35 @@ import DashboardVendedor from './components/DashboardVendedor';
 export default function App() {
   const [role, setRole] = useState<Role>(null);
 
+  // PWA Prompting and Install managers
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isAlreadyInstalled, setIsAlreadyInstalled] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true) {
+      setIsAlreadyInstalled(true);
+    }
+    const handlePrompt = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+    window.addEventListener('beforeinstallprompt', handlePrompt);
+    return () => window.removeEventListener('beforeinstallprompt', handlePrompt);
+  }, []);
+
+  const handleInstallApp = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        setIsAlreadyInstalled(true);
+      }
+      setDeferredPrompt(null);
+    } else {
+      alert('Para instalar "Tienditas BP" en dispositivos iOS o navegadores que no lo soportan nativamente, toca el icono de "Compartir" de tu navegador y selecciona "Agregar a pantalla de inicio".');
+    }
+  };
+
   // Core application states
   const [products, setProducts] = useState<Product[]>([]);
   const [sales, setSales] = useState<Sale[]>([]);
@@ -252,9 +281,13 @@ export default function App() {
 
   return (
     <div id="app-viewport" className="min-h-screen bg-[#F9FAFB] selection:bg-indigo-650 selection:text-white antialiased">
-      {/* Role Access Portal (Role selector keeps look completely minimalist and simple as mandated) */}
+      {/* Role Access Portal */}
       {role === null && (
-        <RoleSelector onSelectRole={(selectedRole) => setRole(selectedRole)} />
+        <RoleSelector 
+          onSelectRole={(selectedRole) => setRole(selectedRole)} 
+          onInstallApp={handleInstallApp}
+          showInstallButton={deferredPrompt !== null || !isAlreadyInstalled}
+        />
       )}
 
       {/* ADMIN INTUITIVE DASHBOARD */}
@@ -279,6 +312,8 @@ export default function App() {
           onUpdateProducts={saveProductsToStorage}
           onResetToHome={handleResetToHome}
           onAddSale={handleAddSale}
+          onInstallApp={handleInstallApp}
+          showInstallButton={deferredPrompt !== null || !isAlreadyInstalled}
         />
       )}
 
@@ -291,6 +326,8 @@ export default function App() {
           sellers={sellers}
           onAddSale={handleAddSale}
           onResetToHome={handleResetToHome}
+          onInstallApp={handleInstallApp}
+          showInstallButton={deferredPrompt !== null || !isAlreadyInstalled}
         />
       )}
     </div>

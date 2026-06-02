@@ -32,6 +32,8 @@ interface DashboardVendedorProps {
   sellers: Seller[];
   onAddSale: (sale: Omit<Sale, 'id'>) => void;
   onResetToHome: () => void;
+  onInstallApp?: () => void;
+  showInstallButton?: boolean;
 }
 
 export default function DashboardVendedor({
@@ -41,6 +43,8 @@ export default function DashboardVendedor({
   sellers,
   onAddSale,
   onResetToHome,
+  onInstallApp,
+  showInstallButton
 }: DashboardVendedorProps) {
   // POS Search and Category filter
   const [search, setSearch] = useState('');
@@ -219,43 +223,62 @@ export default function DashboardVendedor({
     <div id="vendedor-dashboard-root" className="min-h-screen bg-slate-50 text-slate-800 flex flex-col">
       
       {/* Navbar Banner */}
-      <header className="bg-white border-b border-slate-100 py-3.5 px-6 sticky top-0 z-30 shadow-xs">
+      <header className="bg-white border-b border-slate-100 py-3 px-4 md:py-3.5 md:px-6 sticky top-0 z-30 shadow-xs">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 md:space-x-3">
             <button
               id="vendedor-home-btn"
               onClick={onResetToHome}
-              className="p-2 -ml-2 rounded-xl hover:bg-slate-50 transition-colors flex items-center gap-1.5 group font-mono text-xs text-slate-500 hover:text-slate-900 cursor-pointer"
+              className="p-1.5 md:p-2 -ml-2 rounded-xl hover:bg-slate-50 transition-colors flex items-center gap-1 group font-mono text-xs text-slate-500 hover:text-slate-900 cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span>Volver</span>
+              <span className="hidden sm:inline">Volver</span>
             </button>
             <div className="h-4 w-[1px] bg-slate-200"></div>
+            
+            {/* Unencapsulated Rectangular Complete Brand Logo */}
+            <img 
+              src="https://cossma.com.mx/bp.jpeg" 
+              alt="Logo Tienditas BP" 
+              className="h-8 md:h-10 w-auto object-contain rounded" 
+              referrerPolicy="no-referrer"
+            />
+            
+            <div className="h-4 w-[1px] bg-slate-200"></div>
             <div>
-              <span className="text-[10px] uppercase font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 block">
-                Punto de Venta Activo: {activeStore?.name}
+              <span className="text-[9px] md:text-[10px] uppercase font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 block">
+                {activeStore?.name}
               </span>
-              <span className="text-[10px] text-slate-400 font-mono block mt-0.5">
-                📍 {activeStore?.location} • 🎪 {activeSeller?.assignedEvent || 'Evento General'}
+              <span className="text-[8px] md:text-[10px] text-slate-400 font-mono block mt-0.5 max-w-[120px] md:max-w-none truncate">
+                🎪 {activeSeller?.assignedEvent || 'Evento General'}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4">
+            {showInstallButton && onInstallApp && (
+              <button
+                onClick={onInstallApp}
+                className="bg-indigo-50 border border-indigo-100 hover:bg-indigo-100 text-indigo-700 font-bold text-[10px] md:text-xs py-1.5 px-2.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer animate-pulse"
+              >
+                <span>📱 Instalar</span>
+              </button>
+            )}
+
             {/* Cashier identification */}
-            <div className="flex items-center space-x-2 text-xs bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-150">
-              <User className="w-3.5 h-3.5 text-slate-500" />
+            <div className="flex items-center space-x-1 md:space-x-2 text-[10px] md:text-xs bg-slate-100 px-2 md:px-3 py-1.5 rounded-xl border border-slate-150">
+              <User className="w-3 h-3 md:w-3.5 md:h-3.5 text-slate-500 shrink-0" />
               <select
                 value={activeSellerId}
                 onChange={(e) => {
                   setActiveSellerId(e.target.value);
                   setCart([]);
                 }}
-                className="bg-transparent border-none text-slate-800 font-semibold focus:outline-none cursor-pointer"
+                className="bg-transparent border-none text-slate-800 font-semibold focus:outline-none cursor-pointer text-[10px] md:text-xs"
               >
                 {sellers.map(s => (
                   <option key={s.id} value={s.id}>
-                    👤 {s.name} ({s.status === 'active' ? 'Venta Live' : 'Suspendido'})
+                    👤 {s.name.split(' ')[0]}
                   </option>
                 ))}
               </select>

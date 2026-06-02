@@ -10,9 +10,11 @@ import { Role } from '../types';
 
 interface RoleSelectorProps {
   onSelectRole: (role: Role) => void;
+  onInstallApp?: () => void;
+  showInstallButton?: boolean;
 }
 
-export default function RoleSelector({ onSelectRole }: RoleSelectorProps) {
+export default function RoleSelector({ onSelectRole, onInstallApp, showInstallButton }: RoleSelectorProps) {
   const [timeStr, setTimeStr] = useState('20:59');
 
   useEffect(() => {
@@ -30,34 +32,67 @@ export default function RoleSelector({ onSelectRole }: RoleSelectorProps) {
   return (
     <div id="role-selector-container" className="min-h-screen flex flex-col justify-between bg-[#F9FAFB] font-sans text-slate-900 overflow-hidden">
       {/* Header Section */}
-      <header className="px-6 md:px-12 py-8 flex justify-between items-center w-full">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-            </svg>
-          </div>
-          <span className="text-xl font-bold tracking-tight text-slate-800 uppercase font-display">Nexus POS</span>
+      <header className="px-6 md:px-12 py-6 flex justify-between items-center w-full bg-white border-b border-slate-100 shadow-xs">
+        <div className="flex items-center gap-4">
+          <img 
+            src="https://cossma.com.mx/bp.jpeg" 
+            alt="Tienditas BP Logo" 
+            className="h-10 md:h-12 w-auto object-contain rounded-lg shadow-sm" 
+            referrerPolicy="no-referrer"
+          />
+          <span className="text-xl md:text-2xl font-black tracking-tight text-slate-800 uppercase font-display">Tienditas BP</span>
         </div>
         <div className="text-right">
-          <p className="text-xs md:text-sm font-medium text-slate-400 uppercase tracking-widest">Portal de Acceso</p>
-          <p className="text-[10px] md:text-xs text-slate-400 font-mono">v2.4.0 • Sincronizado</p>
+          <p className="text-xs md:text-sm font-semibold text-slate-400 uppercase tracking-widest">Portal de Acceso</p>
+          <p className="text-[10px] md:text-xs text-slate-400 font-mono">v3.0.0 • Sincronizado</p>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col items-center justify-center px-6 md:px-12 py-6">
+      <main className="flex-1 flex flex-col items-center justify-center px-6 md:px-12 py-10">
+        
+        {/* Eye-catching PWA install alert banner */}
+        {showInstallButton && onInstallApp && (
+          <motion.div
+            id="pwa-install-badge"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mb-8 p-4 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-3xl shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4 max-w-lg w-full text-center sm:text-left relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-white/5 opacity-10 animate-pulse"></div>
+            <div className="relative z-10 flex items-center gap-3">
+              <span className="text-2xl shrink-0">✨</span>
+              <div>
+                <h4 className="font-extrabold text-sm tracking-tight text-white">¡Instala la App Oficial!</h4>
+                <p className="text-xs text-indigo-100 font-medium">Accede directo y opera sin internet en eventos.</p>
+              </div>
+            </div>
+            <button
+              onClick={onInstallApp}
+              className="relative z-10 bg-white hover:bg-slate-50 text-indigo-650 font-bold text-xs py-2 px-4 rounded-xl cursor-pointer shadow-md shrink-0 transform hover:scale-[1.02] active:scale-[0.98] transition-all w-full sm:w-auto"
+            >
+              Instalar App 📱
+            </button>
+          </motion.div>
+        )}
+
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-8 md:mb-12"
         >
-          <h1 className="text-3xl md:text-4xl font-light text-slate-800 mb-2 font-display">
+          <img 
+            src="https://cossma.com.mx/bp.jpeg" 
+            alt="Tienditas BP Logo Grande" 
+            className="h-20 md:h-24 w-auto object-contain mx-auto mb-6 rounded-xl shadow-md border border-slate-100" 
+            referrerPolicy="no-referrer"
+          />
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-800 mb-2 font-display tracking-tight">
             Bienvenido de nuevo
           </h1>
-          <p className="text-slate-450 text-sm md:text-lg max-w-md mx-auto">
-            Por favor, seleccione su rol para iniciar sesión en la terminal
+          <p className="text-slate-500 text-xs md:text-sm max-w-md mx-auto">
+            Selecciona tu perfil de acceso para iniciar sesión en la terminal actual de ventas.
           </p>
         </motion.div>
 

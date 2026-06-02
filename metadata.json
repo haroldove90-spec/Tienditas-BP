@@ -1,6 +1,6 @@
 {
-  "name": "POS Minimalista",
-  "description": "Un sistema de punto de venta minimalista con interfaces optimizadas para Administradores y Vendedores.",
+  "name": "Tienditas BP",
+  "description": "Un sistema de punto de venta móvil optimizado para el control de inventarios, listas de precios para eventos e ingresos de Tienditas BP.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -58,6 +58,8 @@ interface DashboardAdminProps {
   onUpdateProducts: (products: Product[]) => void;
   onResetToHome: () => void;
   onAddSale: (sale: Omit<Sale, 'id'>) => void;
+  onInstallApp?: () => void;
+  showInstallButton?: boolean;
 }
 
 export default function DashboardAdmin({
@@ -79,7 +81,9 @@ export default function DashboardAdmin({
   onUpdateAudits,
   onUpdateProducts,
   onResetToHome,
-  onAddSale
+  onAddSale,
+  onInstallApp,
+  showInstallButton
 }: DashboardAdminProps) {
   // Navigation Tabs matching 5 requests
   const [activeTab, setActiveTab] = useState<'dashboard' | 'precios' | 'inventario' | 'personal' | 'auditoria'>('dashboard');
@@ -450,65 +454,119 @@ export default function DashboardAdmin({
   const EMOJIGROUP = ['🍟', '🍔', '🍺', '🥤', '☕', '🥐', '🌮', '🎒', '👕', '🔋', '🔌', '🧉', '📓', '🕶️', '🧴'];
 
   return (
-    <div id="admin-dashboard-container" className="px-4 md:px-8 py-6 max-w-7xl mx-auto space-y-6">
+    <div id="admin-layout" className="min-h-screen bg-slate-50/60 flex flex-col md:flex-row font-sans">
       
-      {/* 1. Dashboard Sub-Header */}
-      <div id="admin-subheader-row" className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-100 shadow-xs">
-        <div>
-          <span className="text-xs font-mono font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full uppercase tracking-wider">
-            Consola del Administrador
-          </span>
-          <h2 className="text-2xl font-bold font-display text-slate-800 mt-2 tracking-tight">Gestión del Canal de Eventos Móviles</h2>
-          <p className="text-slate-400 text-xs mt-0.5">Control de las 4 tiendas móviles, lista de precios matrices y cuadrantes de caja.</p>
+      {/* 1. DESKTOP SIDEBAR */}
+      <aside id="desktop-sidebar" className="w-64 bg-white border-r border-slate-100 flex flex-col justify-between hidden md:flex sticky top-0 h-screen p-5 shrink-0 z-40">
+        <div className="space-y-6">
+          <div className="flex flex-col items-center py-4 border-b border-slate-100">
+            <img 
+              src="https://cossma.com.mx/bp.jpeg" 
+              alt="Logo Tienditas BP" 
+              className="h-14 w-auto object-contain mb-3 rounded-lg shadow-sm" 
+              referrerPolicy="no-referrer"
+            />
+            <span className="text-sm font-black text-slate-800 tracking-tight font-display text-center uppercase">
+              Administración
+            </span>
+            <span className="text-[10px] text-zinc-400 font-mono mt-0.5">Tienditas BP v3.0</span>
+          </div>
+
+          <nav className="space-y-1">
+            {[
+              { id: 'dashboard', label: 'Monitoreo Live', icon: TrendingUp },
+              { id: 'precios', label: 'Multi-Tienda & Precios', icon: MapPin },
+              { id: 'inventario', label: 'Logística & Merma', icon: Package },
+              { id: 'personal', label: 'Personal & Turnos', icon: Users },
+              { id: 'auditoria', label: 'Caja & Auditoría', icon: Coins }
+            ].map(tb => {
+              const Icon = tb.icon;
+              const isSelected = activeTab === tb.id;
+              return (
+                <button
+                  key={tb.id}
+                  onClick={() => setActiveTab(tb.id as any)}
+                  className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold flex items-center gap-3 transition-all cursor-pointer ${
+                    isSelected 
+                      ? 'bg-indigo-600 text-white shadow-md' 
+                      : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'
+                  }`}
+                >
+                  <Icon className="w-4 h-4 shrink-0" />
+                  <span>{tb.label}</span>
+                </button>
+              )
+            })}
+          </nav>
         </div>
 
-        <div className="flex items-center gap-3">
-          {activeTab === 'dashboard' && (
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              onClick={handleSimulateLiveSale}
-              className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-xs py-2.5 px-4 rounded-xl flex items-center gap-1.5 cursor-pointer shadow-sm shadow-emerald-200 transition-colors"
+        <div className="space-y-3 pt-4 border-t border-slate-100">
+          {showInstallButton && onInstallApp && (
+            <button
+              onClick={onInstallApp}
+              className="w-full bg-indigo-50 border border-indigo-100 hover:bg-indigo-100 text-indigo-700 font-bold text-xs py-2.5 px-3 rounded-xl cursor-pointer flex items-center justify-center gap-2"
             >
-              <Sparkles className="w-3.5 h-3.5 text-emerald-100" />
-              <span>Simular Venta en Vivo</span>
-            </motion.button>
+              <span>📱 Instalar App</span>
+            </button>
           )}
+
           <button
             onClick={onResetToHome}
-            className="border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold text-xs py-2.5 px-4 rounded-xl cursor-pointer transition-colors"
+            className="w-full border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold text-xs py-2 px-3 rounded-xl cursor-pointer flex items-center justify-center gap-2"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Quitar Rol</span>
+          </button>
+        </div>
+      </aside>
+
+      {/* 2. MAIN WORKSPACE */}
+      <main id="main-content-panel" className="flex-grow flex flex-col min-h-screen overflow-x-hidden pb-20 md:pb-6">
+        
+        {/* MOBILE TOP NAV (Hidden on desktop) */}
+        <header id="mobile-top-header" className="bg-white border-b border-slate-150/60 py-3 px-4 flex items-center justify-between md:hidden sticky top-0 z-30 shadow-xs">
+          <div className="flex items-center gap-3">
+            <img 
+              src="https://cossma.com.mx/bp.jpeg" 
+              alt="Logo Tienditas BP" 
+              className="h-8 w-auto object-contain rounded" 
+              referrerPolicy="no-referrer"
+            />
+            <span className="text-xs font-black tracking-tight text-slate-800 uppercase font-display">Tienditas BP</span>
+          </div>
+          <button
+            onClick={onResetToHome}
+            className="border border-slate-200 bg-slate-50/50 hover:bg-slate-100 text-slate-600 font-semibold text-[10px] py-1.5 px-3 rounded-lg cursor-pointer flex items-center gap-1 shrink-0"
           >
             Quitar Rol
           </button>
-        </div>
-      </div>
+        </header>
 
-      {/* 2. Core Dashboard Tab Index */}
-      <div id="admin-tab-row" className="flex overflow-x-auto gap-2 bg-slate-100 p-1 rounded-2xl max-w-3xl border border-slate-200/50 scrollbar-none">
-        {[
-          { id: 'dashboard', label: '📊 Monitoreo Live', icon: TrendingUp },
-          { id: 'precios', label: '🏨 Multi-Tienda y Precios', icon: MapPin },
-          { id: 'inventario', label: '📦 Logística & Merma', icon: Package },
-          { id: 'personal', label: '👥 Personal y Turnos', icon: Users },
-          { id: 'auditoria', label: '🪙 Caja y Auditoría', icon: Coins }
-        ].map(tb => {
-          const Icon = tb.icon;
-          const isSelected = activeTab === tb.id;
-          return (
-            <button
-              key={tb.id}
-              onClick={() => setActiveTab(tb.id as any)}
-              className={`py-2 px-4 rounded-xl text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 cursor-pointer transition-all ${
-                isSelected 
-                  ? 'bg-white text-indigo-600 shadow-sm border border-slate-150/10' 
-                  : 'text-slate-500 hover:bg-white/50 hover:text-slate-800'
-              }`}
-            >
-              <Icon className="w-3.5 h-3.5 shrink-0" />
-              <span>{tb.label}</span>
-            </button>
-          )
-        })}
-      </div>
+        {/* WORKSPACE BODY INNER SCROLLER */}
+        <div id="workspace-scroller-inner" className="p-4 md:p-8 space-y-6 flex-grow border-0">
+          
+          <div id="admin-subheader-row" className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-100 shadow-xs">
+            <div>
+              <span className="text-xs font-mono font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full uppercase tracking-wider">
+                Consola del Administrador
+              </span>
+              <h2 className="text-2xl font-bold font-display text-slate-800 mt-2 tracking-tight">Gestión del Canal de Eventos Móviles</h2>
+              <p className="text-slate-400 text-xs mt-0.5">Control de las 4 tiendas móviles, lista de precios matrices y cuadrantes de caja.</p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              {activeTab === 'dashboard' && (
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleSimulateLiveSale}
+                  className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-xs py-2.5 px-4 rounded-xl flex items-center gap-1.5 cursor-pointer shadow-sm shadow-emerald-200 transition-colors"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-100" />
+                  <span>Simular Venta en Vivo</span>
+                </motion.button>
+              )}
+            </div>
+          </div>
 
       {/* 3. Tab contents implementations */}
       <AnimatePresence mode="wait">
@@ -1652,6 +1710,37 @@ export default function DashboardAdmin({
           </div>
         )}
       </AnimatePresence>
+
+        </div>
+      </main>
+
+      {/* 3. MOBILE STICKY BOTTOM TAB NAVIGATION */}
+      <div id="mobile-tab-navigation" className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white/95 backdrop-blur-md border-t border-slate-200/80 z-40 flex justify-around items-center px-1 pb-safe shadow-lg">
+        {[
+          { id: 'dashboard', label: 'Live', icon: TrendingUp },
+          { id: 'precios', label: 'Precios', icon: MapPin },
+          { id: 'inventario', label: 'Stock', icon: Package },
+          { id: 'personal', label: 'Personal', icon: Users },
+          { id: 'auditoria', label: 'Cajas', icon: Coins }
+        ].map(tb => {
+          const Icon = tb.icon;
+          const isSelected = activeTab === tb.id;
+          return (
+            <button
+              key={tb.id}
+              onClick={() => setActiveTab(tb.id as any)}
+              className={`flex flex-col items-center justify-center flex-1 h-full py-1 text-[10px] font-bold tracking-tight transition-all cursor-pointer ${
+                isSelected ? 'text-indigo-600 scale-105 font-extrabold' : 'text-slate-450 hover:text-slate-650'
+              }`}
+            >
+              <div className={`p-1 rounded-lg ${isSelected ? 'bg-indigo-50' : 'bg-transparent'}`}>
+                <Icon className="w-5 h-5 shrink-0" />
+              </div>
+              <span className="mt-0.5">{tb.label}</span>
+            </button>
+          )
+        })}
+      </div>
 
     </div>
   );

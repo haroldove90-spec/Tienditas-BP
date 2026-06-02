@@ -6,105 +6,87 @@
 import { Product, Category, Store, Seller, Sale, StockTransfer, StockAdjustment, CashAudit } from './types';
 
 export const INITIAL_CATEGORIES: Category[] = [
-  { id: 'alimentos', name: 'Alimentos y Bebidas', color: 'bg-emerald-50 text-emerald-800 border-emerald-100' },
-  { id: 'tecnologia', name: 'Tecnología', color: 'bg-blue-50 text-blue-800 border-blue-100' },
-  { id: 'ropa', name: 'Ropa y Accesorios', color: 'bg-purple-50 text-purple-800 border-purple-100' },
-  { id: 'hogar', name: 'Hogar', color: 'bg-amber-50 text-amber-800 border-amber-100' },
-  { id: 'papeleria', name: 'Papelería', color: 'bg-rose-50 text-rose-800 border-rose-100' },
+  { id: 'alimentos', name: 'Bebidas y Alimentos', color: 'bg-emerald-50 text-emerald-800 border-emerald-100' },
+  { id: 'importados', name: 'Kirkland / Premium', color: 'bg-blue-50 text-blue-800 border-blue-100' },
+  { id: 'energia', name: 'Energía / Suero', color: 'bg-amber-50 text-amber-800 border-amber-100' },
 ];
 
 export const INITIAL_PRODUCTS: Product[] = [
-  {
-    id: 'prod-papas',
-    name: 'Papas Fritas Gourmet XL',
-    sku: 'ALM-PAP-010',
-    price: 30.00, // Base price ($30)
-    category: 'alimentos',
-    stock: 500, // Total global warehouse stock
-    minStock: 25,
-    emoji: '🍟'
-  },
-  {
-    id: 'prod-1',
-    name: 'Café Espresso Premium',
-    sku: 'CAF-ESP-001',
-    price: 3.50,
-    category: 'alimentos',
-    stock: 260,
-    minStock: 15,
-    emoji: '☕'
-  },
-  {
-    id: 'prod-2',
-    name: 'Croissant de Mantequilla',
-    sku: 'PAN-CRO-002',
-    price: 2.20,
-    category: 'alimentos',
-    stock: 175,
-    minStock: 12,
-    emoji: '🥐'
-  },
-  {
-    id: 'prod-3',
-    name: 'Auriculares Inalámbricos',
-    sku: 'TEC-AUR-003',
-    price: 49.99,
-    category: 'tecnologia',
-    stock: 47,
-    minStock: 5,
-    emoji: '🎧'
-  },
-  {
-    id: 'prod-4',
-    name: 'Camiseta de Algodón Orgánico',
-    sku: 'ROP-CAM-004',
-    price: 19.99,
-    category: 'ropa',
-    stock: 110,
-    minStock: 10,
-    emoji: '👕'
-  },
-  {
-    id: 'prod-5',
-    name: 'Botella de Agua Térmica',
-    sku: 'HOG-BOT-005',
-    price: 15.00,
-    category: 'hogar',
-    stock: 81,
-    minStock: 15,
-    emoji: '🧉'
-  },
-  {
-    id: 'prod-6',
-    name: 'Cuaderno Minimalista A5',
-    sku: 'PAP-CUA-006',
-    price: 6.50,
-    category: 'papeleria',
-    stock: 110,
-    minStock: 10,
-    emoji: '📓'
-  },
-  {
-    id: 'prod-7',
-    name: 'Cargador Rápido USB-C 20W',
-    sku: 'TEC-CAR-007',
-    price: 12.99,
-    category: 'tecnologia',
-    stock: 39,
-    minStock: 8,
-    emoji: '🔌'
-  },
-  {
-    id: 'prod-8',
-    name: 'Lentes de Sol Clásicos',
-    sku: 'ROP-LEN-008',
-    price: 24.50,
-    category: 'ropa',
-    stock: 68,
-    minStock: 6,
-    emoji: '🕶️'
-  }
+  { id: 'B001', name: 'Jugo Naranja Punch', sku: 'B001', price: 14.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍊' },
+  { id: 'B002', name: 'Boing lata', sku: 'B002', price: 17.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B003', name: 'fuze tea 600ml + maleta', sku: 'B003', price: 16.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🎒' },
+  { id: 'B003A', name: 'fuze tea durazno 600ml', sku: 'B003A', price: 16.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍑' },
+  { id: 'B004', name: 'Gatorade Performance 355ml', sku: 'B004', price: 17.00, category: 'energia', stock: 150, minStock: 15, emoji: '⚡' },
+  { id: 'B005', name: 'lechitas alpura chocolate /santa clara', sku: 'B005', price: 14.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥛' },
+  { id: 'B006A', name: 'Yogurth danone 250g', sku: 'B006A', price: 16.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍼' },
+  { id: 'B006B', name: 'Yogurth danone 120g', sku: 'B006B', price: 12.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍼' },
+  { id: 'B006C', name: 'Yogurth Lala', sku: 'B006C', price: 16.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍼' },
+  { id: 'B007', name: 'Mirinda', sku: 'B007', price: 20.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B008', name: 'Casera 600ml Refresco', sku: 'B008', price: 20.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B009', name: 'Squirt 355ml Refresco light', sku: 'B009', price: 14.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B010', name: 'Squirt 400ml', sku: 'B010', price: 12.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B011', name: '7up Citrus', sku: 'B011', price: 18.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍋' },
+  { id: 'B011A', name: 'Bonafont', sku: 'B011A', price: 10.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '💧' },
+  { id: 'B012', name: 'Fresada Peñafiel 600ml', sku: 'B012', price: 20.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍓' },
+  { id: 'B013', name: 'Fresada Peñafiel 600', sku: 'B013', price: 20.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍓' },
+  { id: 'B014', name: 'Limonada Peñafiel 600ml', sku: 'B014', price: 20.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍋' },
+  { id: 'B015', name: 'Mangada Peñafiel 600ml', sku: 'B015', price: 22.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥭' },
+  { id: 'B016', name: 'Manzanada Peñafiel 600ml', sku: 'B016', price: 22.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍎' },
+  { id: 'B017', name: 'Naranjada Peñafiel 600ml', sku: 'B017', price: 22.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍊' },
+  { id: 'B018', name: 'Toronjada Peñafiel 600ml', sku: 'B018', price: 20.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍊' },
+  { id: 'B019', name: 'Piñada Peñafiel 600ml', sku: 'B019', price: 22.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍍' },
+  { id: 'B020', name: 'Jarrito surtido lata', sku: 'B020', price: 16.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B021', name: 'Red cola light 500ml', sku: 'B021', price: 12.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B022', name: 'Mundet Light 600', sku: 'B022', price: 10.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍎' },
+  { id: 'B023', name: 'Deliciosa Manzanita 600ml', sku: 'B023', price: 16.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍎' },
+  { id: 'B023b', name: 'Deliciosa', sku: 'B023b', price: 13.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍎' },
+  { id: 'B024', name: 'e-pura', sku: 'B024', price: 9.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '💧' },
+  { id: 'B024A', name: 'e-pura 1L', sku: 'B024A', price: 12.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '💧' },
+  { id: 'B025', name: 'Coca Pet 500ml', sku: 'B025', price: 22.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B026', name: 'Coca Lata 355ml', sku: 'B026', price: 25.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B027', name: 'Coca Lata Sin Azucar', sku: 'B027', price: 16.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B028', name: 'Coca Light 600', sku: 'B028', price: 18.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B029', name: 'Coca light Lata', sku: 'B029', price: 18.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B030', name: 'Zubba', sku: 'B030', price: 18.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B031', name: 'Coca Cola 300ml Sin Azucar', sku: 'B031', price: 11.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B032', name: 'Sidral Mund Light 300ml chubby', sku: 'B032', price: 11.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍎' },
+  { id: 'B033', name: 'Sprite Light 300ml chubby', sku: 'B033', price: 11.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B034', name: 'Licuado 240gr', sku: 'B034', price: 12.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥛' },
+  { id: 'B035', name: 'Jarrito Pet 600 ml', sku: 'B035', price: 18.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B036', name: 'tetrapack boing 250ml', sku: 'B036', price: 12.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B037', name: 'Suerox (bebida rehidrante)', sku: 'B037', price: 27.00, category: 'energia', stock: 150, minStock: 15, emoji: '⚡' },
+  { id: 'B038', name: 'Amper Energizante (473ml)', sku: 'B038', price: 25.00, category: 'energia', stock: 150, minStock: 15, emoji: '🔋' },
+  { id: 'B039', name: 'Pepsi Black 355ml', sku: 'B039', price: 14.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B040', name: 'Arizona 460ml', sku: 'B040', price: 20.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🌵' },
+  { id: 'B041', name: 'Jugo del Valle Kids', sku: 'B041', price: 9.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🧃' },
+  { id: 'B042', name: 'Agua 500 ml Member\'s Mark', sku: 'B042', price: 7.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '💧' },
+  { id: 'B043', name: 'Bonafont 330ml', sku: 'B043', price: 7.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '💧' },
+  { id: 'B044', name: 'Coca cola Chubby Original', sku: 'B044', price: 15.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B045', name: 'Coca cola 300ml s/azucar', sku: 'B045', price: 11.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B046', name: 'Pascual Refresco Pet 600ml', sku: 'B046', price: 17.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B047', name: 'Mini Peñafiel sabores 330ml', sku: 'B047', price: 15.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B049', name: 'Pascual agua sabores', sku: 'B049', price: 10.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🧃' },
+  { id: 'B050', name: 'Red cola lata', sku: 'B050', price: 16.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B051', name: 'Agua sabor Skarch', sku: 'B051', price: 12.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '💧' },
+  { id: 'B052', name: 'Sidral Aga 600ml', sku: 'B052', price: 18.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🍎' },
+  { id: 'B053', name: 'Red cola 600ml', sku: 'B053', price: 18.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B054', name: 'Mineralita 600ml', sku: 'B054', price: 13.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '💧' },
+  { id: 'B055', name: 'Jugo Kirkland', sku: 'B055', price: 18.00, category: 'importados', stock: 150, minStock: 15, emoji: '🧃' },
+  { id: 'B056', name: 'Té verde Kirkland', sku: 'B056', price: 14.00, category: 'importados', stock: 150, minStock: 15, emoji: '🍵' },
+  { id: 'B057', name: 'Bebida deportistas Members Mark', sku: 'B057', price: 20.00, category: 'energia', stock: 150, minStock: 15, emoji: '⚡' },
+  { id: 'B058', name: 'Aguafiel Sabores', sku: 'B058', price: 10.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '💧' },
+  { id: 'B059', name: 'Pepsi 600ml Pet', sku: 'B059', price: 20.00, category: 'alimentos', stock: 150, minStock: 15, emoji: '🥤' },
+  { id: 'B060', name: 'Vive100 lata', sku: 'B060', price: 20.00, category: 'energia', stock: 150, minStock: 15, emoji: '⚡' }
 ];
+
+// Helper to generate full inventory catalog mapping records programmatically
+export const makeDefaultStock = (qty: number): Record<string, number> => {
+  const stock: Record<string, number> = {};
+  INITIAL_PRODUCTS.forEach(p => {
+    stock[p.id] = qty;
+  });
+  return stock;
+};
 
 export const INITIAL_STORES: Store[] = [
   {
@@ -113,22 +95,11 @@ export const INITIAL_STORES: Store[] = [
     location: 'Evento Corporativo Torre Bancomer',
     status: 'active',
     prices: {
-      'prod-papas': 40.00, // Expensive list for corporate event
-      'prod-1': 5.00,
-      'prod-2': 3.50,
-      'prod-3': 55.00
+      'B025': 24.00, // Coca Pet override
+      'B026': 27.00, // Coca Lata override
+      'B001': 16.00  // Jugo Naranja overlay
     },
-    stock: {
-      'prod-papas': 120,
-      'prod-1': 80,
-      'prod-2': 40,
-      'prod-3': 10,
-      'prod-4': 25,
-      'prod-5': 30,
-      'prod-6': 25,
-      'prod-7': 12,
-      'prod-8': 18
-    }
+    stock: makeDefaultStock(120)
   },
   {
     id: 'store-b',
@@ -136,22 +107,10 @@ export const INITIAL_STORES: Store[] = [
     location: 'Feria Escolar - Colegio Alemán',
     status: 'active',
     prices: {
-      'prod-papas': 25.00, // Affordable list for students
-      'prod-1': 2.80,
-      'prod-2': 1.80,
-      'prod-3': 45.00
+      'B024': 10.00, // e-pura price override for school event
+      'B042': 8.00
     },
-    stock: {
-      'prod-papas': 150,
-      'prod-1': 15, // Low stock since minStock is 15
-      'prod-2': 35,
-      'prod-3': 5,
-      'prod-4': 30,
-      'prod-5': 5,  // Low stock alert
-      'prod-6': 40,
-      'prod-7': 8,
-      'prod-8': 20
-    }
+    stock: makeDefaultStock(150)
   },
   {
     id: 'store-c',
@@ -159,44 +118,19 @@ export const INITIAL_STORES: Store[] = [
     location: 'Festival MusikFest - Foro Sol',
     status: 'active',
     prices: {
-      'prod-papas': 45.00, // High pricing for music festivals
-      'prod-1': 6.00,
-      'prod-2': 4.00,
-      'prod-4': 25.00
+      'B025': 26.00, // Concert price hiking
+      'B026': 28.00,
+      'B038': 30.00
     },
-    stock: {
-      'prod-papas': 180,
-      'prod-1': 110,
-      'prod-2': 80,
-      'prod-3': 20,
-      'prod-4': 40,
-      'prod-5': 3,  // Critical low stock alert
-      'prod-6': 15,
-      'prod-7': 15,
-      'prod-8': 15
-    }
+    stock: makeDefaultStock(180)
   },
   {
     id: 'store-d',
     name: 'Tienda Móvil D (Exposición)',
     location: 'Exposición Bazar Cultural Roma',
-    status: 'inactive', // Start inactive so admin can experience activation/deactivation
-    prices: {
-      'prod-papas': 30.00, // Standard base pricing
-      'prod-1': 3.50,
-      'prod-2': 2.20
-    },
-    stock: {
-      'prod-papas': 50,
-      'prod-1': 10,
-      'prod-2': 20,
-      'prod-3': 12,
-      'prod-4': 15,
-      'prod-5': 13,
-      'prod-6': 30,
-      'prod-7': 4,
-      'prod-8': 15
-    }
+    status: 'inactive',
+    prices: {},
+    stock: makeDefaultStock(80)
   }
 ];
 
@@ -204,7 +138,7 @@ export const INITIAL_SELLERS: Seller[] = [
   {
     id: 'sell-1',
     name: 'Carlos Gómez',
-    email: 'carlos.ventas@nexuspos.com',
+    email: 'carlos.ventas@tienditasbp.com',
     status: 'active',
     assignedStoreId: 'store-a',
     assignedEvent: 'Catering Privado BBVA'
@@ -212,7 +146,7 @@ export const INITIAL_SELLERS: Seller[] = [
   {
     id: 'sell-2',
     name: 'Sofía Martínez',
-    email: 'sofia.m@nexuspos.com',
+    email: 'sofia.m@tienditasbp.com',
     status: 'active',
     assignedStoreId: 'store-b',
     assignedEvent: 'Kermés Escolar Primavera'
@@ -220,7 +154,7 @@ export const INITIAL_SELLERS: Seller[] = [
   {
     id: 'sell-3',
     name: 'Juan Pérez',
-    email: 'juan.p@nexuspos.com',
+    email: 'juan.p@tienditasbp.com',
     status: 'active',
     assignedStoreId: 'store-c',
     assignedEvent: 'Festival Indio Rock'
@@ -228,7 +162,7 @@ export const INITIAL_SELLERS: Seller[] = [
   {
     id: 'sell-4',
     name: 'Ana Delgado',
-    email: 'ana.d@nexuspos.com',
+    email: 'ana.d@tienditasbp.com',
     status: 'active',
     assignedStoreId: 'store-d',
     assignedEvent: 'Exposición Estilo Roma'
@@ -239,15 +173,15 @@ export const INITIAL_TRANSFERS: StockTransfer[] = [
   {
     id: 'tr-101',
     timestamp: '2026-06-02T10:30:00Z',
-    productId: 'prod-papas',
+    productId: 'B001',
     fromStoreId: 'store-b',
     toStoreId: 'store-c',
-    quantity: 50
+    quantity: 15
   },
   {
     id: 'tr-102',
     timestamp: '2026-06-02T14:15:00Z',
-    productId: 'prod-1',
+    productId: 'B025',
     fromStoreId: 'store-a',
     toStoreId: 'store-b',
     quantity: 20
@@ -258,20 +192,20 @@ export const INITIAL_ADJUSTMENTS: StockAdjustment[] = [
   {
     id: 'adj-501',
     timestamp: '2026-06-02T09:12:00Z',
-    productId: 'prod-2',
+    productId: 'B006A',
     storeId: 'store-b',
     quantity: 4,
     reason: 'merma',
-    notes: 'Croissants aplastados durante transporte'
+    notes: 'Yogures aplastados durante transporte'
   },
   {
     id: 'adj-502',
     timestamp: '2026-06-02T11:45:00Z',
-    productId: 'prod-5',
+    productId: 'B024',
     storeId: 'store-c',
     quantity: 2,
     reason: 'producto_dañado',
-    notes: 'Botellas rayadas en exhibidor'
+    notes: 'Botellas derramadas en exhibidor'
   }
 ];
 
@@ -295,14 +229,14 @@ export const INITIAL_AUDITS: CashAudit[] = [
     cashier: 'Sofía Martínez',
     expectedCash: 120.00,
     reportedCash: 115.00,
-    difference: -5.00, // Discrepancia
+    difference: -5.00,
     reportedCards: 320.00,
     reportedTransfers: 0,
     isClosed: true
   },
   {
     id: 'aud-203',
-    timestamp: '2026-06-02T20:55:00Z', // Today (Ready to audit)
+    timestamp: '2026-06-02T20:55:00Z',
     storeId: 'store-c',
     cashier: 'Juan Pérez',
     expectedCash: 480.00,
@@ -310,7 +244,7 @@ export const INITIAL_AUDITS: CashAudit[] = [
     difference: -480.00,
     reportedCards: 240.00,
     reportedTransfers: 120.00,
-    isClosed: false // Open right now!
+    isClosed: false
   }
 ];
 
@@ -320,15 +254,15 @@ export const INITIAL_SALES: Sale[] = [
     timestamp: '2026-06-02T11:15:00Z',
     storeId: 'store-a',
     items: [
-      { productId: 'prod-papas', name: 'Papas Fritas Gourmet XL', price: 40.00, quantity: 2 },
-      { productId: 'prod-1', name: 'Café Espresso Premium', price: 5.00, quantity: 2 }
+      { productId: 'B038', name: 'Amper Energizante (473ml)', price: 25.00, quantity: 2 },
+      { productId: 'B025', name: 'Coca Pet 500ml', price: 22.00, quantity: 2 }
     ],
-    subtotal: 90.00,
+    subtotal: 94.00,
     discount: 0,
-    total: 90.00,
+    total: 94.00,
     paymentMethod: 'cash',
     cashReceived: 100.00,
-    changePaid: 10.00,
+    changePaid: 6.00,
     cashier: 'Carlos Gómez'
   },
   {
@@ -336,12 +270,12 @@ export const INITIAL_SALES: Sale[] = [
     timestamp: '2026-06-02T13:40:00Z',
     storeId: 'store-b',
     items: [
-      { productId: 'prod-papas', name: 'Papas Fritas Gourmet XL', price: 25.00, quantity: 3 },
-      { productId: 'prod-2', name: 'Croissant de Mantequilla', price: 1.80, quantity: 2 }
+      { productId: 'B001', name: 'Jugo Naranja Punch', price: 14.00, quantity: 3 },
+      { productId: 'B002', name: 'Boing lata', price: 17.00, quantity: 2 }
     ],
-    subtotal: 78.60,
+    subtotal: 76.00,
     discount: 5.00,
-    total: 73.60,
+    total: 71.00,
     paymentMethod: 'card',
     cashier: 'Sofía Martínez'
   },
@@ -350,26 +284,13 @@ export const INITIAL_SALES: Sale[] = [
     timestamp: '2026-06-02T16:20:00Z',
     storeId: 'store-c',
     items: [
-      { productId: 'prod-papas', name: 'Papas Fritas Gourmet XL', price: 45.00, quantity: 4 },
-      { productId: 'prod-4', name: 'Camiseta de Algodón Orgánico', price: 25.00, quantity: 1 }
+      { productId: 'B057', name: 'Bebida deportistas Members Mark', price: 20.00, quantity: 4 },
+      { productId: 'B011', name: '7up Citrus', price: 18.00, quantity: 1 }
     ],
-    subtotal: 205.00,
+    subtotal: 98.00,
     discount: 0,
-    total: 205.00,
+    total: 98.00,
     paymentMethod: 'transfer',
     cashier: 'Juan Pérez'
-  },
-  {
-    id: 'V-1004',
-    timestamp: '2026-06-02T18:10:00Z',
-    storeId: 'store-a',
-    items: [
-      { productId: 'prod-3', name: 'Auriculares Inalámbricos', price: 55.00, quantity: 1 }
-    ],
-    subtotal: 55.00,
-    discount: 0,
-    total: 55.00,
-    paymentMethod: 'card',
-    cashier: 'Carlos Gómez'
   }
 ];
