@@ -1,0 +1,6 @@
+{
+  "name": "POS Minimalista",
+  "description": "Un sistema de punto de venta minimalista con interfaces optimizadas para Administradores y Vendedores.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
