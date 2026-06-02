@@ -68,6 +68,7 @@ export default function DashboardVendedor({
 }: DashboardVendedorProps) {
   // Navigation tabs matching the 4 seller modules
   const [activeTab, setActiveTab] = useState<'pos' | 'arqueo' | 'inventario' | 'historial'>('pos');
+  const [posSubTab, setPosSubTab] = useState<'catalog' | 'cart'>('catalog');
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('todos');
 
@@ -374,10 +375,10 @@ export default function DashboardVendedor({
   };
 
   return (
-    <div id="vendedor-workspace-root" className="min-h-screen bg-slate-50 text-slate-950 flex flex-col md:flex-row font-sans">
+    <div id="vendedor-workspace-root" className="min-h-screen bg-slate-50 text-slate-950 flex flex-col lg:flex-row font-sans">
       
       {/* DESKTOP SIDEBAR - Cybernetic premium purple aesthetic from reference image */}
-      <aside className="w-68 bg-gradient-to-b from-indigo-700 via-indigo-900 to-slate-950 text-white hidden md:flex flex-col justify-between p-5 shrink-0 z-40 sticky top-0 h-screen shadow-2xl">
+      <aside className="w-68 bg-gradient-to-b from-indigo-700 via-indigo-900 to-slate-950 text-white hidden lg:flex flex-col justify-between p-5 shrink-0 z-40 sticky top-0 h-screen shadow-2xl">
         <div className="space-y-6">
           {/* Logo Brand Header Block */}
           <div className="flex items-center gap-3.5 pb-4 border-b border-indigo-500/20">
@@ -479,10 +480,10 @@ export default function DashboardVendedor({
       </aside>
 
       {/* WORKSPACE CONTENT AREA */}
-      <main className="flex-1 flex flex-col min-h-screen pb-24 md:pb-6 overflow-x-hidden">
+      <main className="flex-1 flex flex-col min-h-screen pb-24 lg:pb-6 overflow-x-hidden">
         
         {/* MOBILE TOP NAVIGATION HEADER BAR */}
-        <header className="bg-white border-b border-slate-200 py-3 px-4 flex items-center justify-between md:hidden sticky top-0 z-30 shadow-xs">
+        <header className="bg-white border-b border-slate-200 py-3 px-4 flex items-center justify-between lg:hidden sticky top-0 z-30 shadow-xs">
           <div className="flex items-center gap-3">
             <img 
               src="https://cossma.com.mx/bp.jpeg" 
@@ -498,7 +499,7 @@ export default function DashboardVendedor({
 
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1 bg-slate-100 py-1 px-2 rounded-lg border border-slate-200">
-              <User className="w-3.5 h-3.5 text-slate-500" />
+              <User id="icon-mobile-active-user" className="w-3.5 h-3.5 text-slate-500" />
               <select
                 value={activeSellerId}
                 onChange={(e) => {
@@ -525,16 +526,16 @@ export default function DashboardVendedor({
         </header>
 
         {/* WORKSPACE BODY INNER */}
-        <div id="vendedor-workspace-body" className="p-4 md:p-6 lg:p-8 space-y-6 flex-grow">
+        <div id="vendedor-workspace-body" className="p-4 lg:p-8 space-y-6 flex-grow">
           
           {/* HELLO USER GREETING BANNER - Inspired by Lucy widget in the reference image */}
-          <section className="bg-gradient-to-r from-cyan-400 via-sky-500 to-indigo-600 text-white rounded-3xl p-6 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 select-none">
+          <section className="bg-gradient-to-r from-cyan-400 via-sky-500 to-indigo-600 text-white rounded-3xl p-6 shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-6 select-none">
             {/* Ambient Background Accents */}
             <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
             <div className="absolute bottom-0 left-0 w-60 h-60 bg-cyan-400/10 rounded-full blur-2xl -ml-20 -mb-20"></div>
 
-            <div className="space-y-2 text-center md:text-left z-10">
-              <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
+            <div className="space-y-2 text-center lg:text-left z-10">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
                 <span className="text-xs uppercase tracking-widest font-mono font-extrabold bg-white/20 border border-white/25 px-3 py-1 rounded-full text-cyan-100">
                   🎪 Evento Activo: {activeSeller?.assignedEvent || 'Evento General'}
                 </span>
@@ -542,16 +543,16 @@ export default function DashboardVendedor({
                   👤 Cajero: {activeSeller?.name}
                 </span>
               </div>
-              <h2 className="text-2xl md:text-3.5xl font-black font-display tracking-tight leading-tight">
+              <h2 className="text-2xl lg:text-3.5xl font-black font-display tracking-tight leading-tight">
                 ¡Hola, {activeSeller?.name.split(' ')[0]}! Buen Día ☀️
               </h2>
-              <p className="text-sky-50 font-medium text-xs md:text-base max-w-lg leading-snug">
+              <p className="text-sky-50 font-medium text-xs lg:text-base max-w-lg leading-snug">
                 Estas operando en la sucursal <strong className="text-white underline">{activeStore?.name}</strong>. Aplican precios específicos de evento.
               </p>
             </div>
 
             {/* Quick metrics boxes within hello widget */}
-            <div className="flex gap-4 shrink-0 z-10 w-full md:w-auto overflow-x-auto pb-1 md:pb-0 scrollbar-none justify-center">
+            <div className="flex gap-4 shrink-0 z-10 w-full lg:w-auto overflow-x-auto pb-1 lg:pb-0 scrollbar-none justify-center">
               <div className="bg-white/10 backdrop-blur-md border border-white/10 py-3.5 px-5 rounded-2xl text-center min-w-[110px]">
                 <span className="text-[10px] font-bold font-mono tracking-widest text-cyan-200 block uppercase mb-1">VENTAS SHIFT</span>
                 <span className="text-lg md:text-2xl font-black">${shiftSalesTotal.toFixed(2)}</span>
@@ -620,8 +621,43 @@ export default function DashboardVendedor({
                   </div>
                 ) : (
                   <>
+                    {/* POS View Mode Selector on Tablet/Mobile */}
+                    <div className="col-span-full lg:hidden bg-white p-1.5 rounded-2xl border border-slate-200 select-none flex shadow-xs mb-2">
+                      <button 
+                        type="button"
+                        onClick={() => setPosSubTab('catalog')}
+                        className={`flex-1 py-3 text-center rounded-xl text-xs font-extrabold transition-all cursor-pointer flex items-center justify-center gap-2 ${
+                          posSubTab === 'catalog' 
+                            ? 'bg-indigo-600 text-white shadow-xs' 
+                            : 'text-slate-500 hover:text-slate-800'
+                        }`}
+                      >
+                        <Tag className="w-4 h-4" />
+                        <span>Bebidas y Alimentos</span>
+                      </button>
+                      <button 
+                        type="button"
+                        onClick={() => setPosSubTab('cart')}
+                        className={`flex-1 py-3 text-center rounded-xl text-xs font-extrabold transition-all cursor-pointer flex items-center justify-center gap-2 ${
+                          posSubTab === 'cart' 
+                            ? 'bg-indigo-600 text-white shadow-xs' 
+                            : 'text-slate-500 hover:text-slate-800'
+                        }`}
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                        <span>Carrito POS</span>
+                        {cart.length > 0 ? (
+                          <span className="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full font-black min-w-[20px] text-center animate-pulse">
+                            {cart.reduce((sum, item) => sum + item.quantity, 0)}
+                          </span>
+                        ) : (
+                          <span className="bg-slate-100 text-slate-400 text-[10px] px-2 py-0.5 rounded-full font-black">0</span>
+                        )}
+                      </button>
+                    </div>
+
                     {/* LEFT COLUMN: Catalog panel (8 cols) */}
-                    <div className="lg:col-span-7 xl:col-span-8 flex flex-col space-y-6">
+                    <div className={`lg:col-span-7 xl:col-span-8 flex flex-col space-y-6 ${posSubTab === 'catalog' ? 'flex' : 'hidden lg:flex'}`}>
                       
                       {/* Catalog Filter Controls bar */}
                       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-3xl border border-slate-200 shadow-xs">
@@ -770,7 +806,7 @@ export default function DashboardVendedor({
                     </div>
 
                     {/* RIGHT COLUMN: Active Cart container panel representing professional shopping panel (4/12 cols) */}
-                    <div className="lg:col-span-5 xl:col-span-4 bg-white rounded-3.5xl rounded-3xl border border-slate-205 border-slate-200 shadow-sm overflow-hidden flex flex-col h-[calc(100vh-180px)] sticky top-24">
+                    <div className={`lg:col-span-5 xl:col-span-4 bg-white rounded-3.5xl rounded-3xl border border-slate-250 border-slate-200 shadow-sm overflow-hidden flex flex-col h-[calc(100vh-200px)] lg:sticky lg:top-24 ${posSubTab === 'cart' ? 'flex' : 'hidden lg:flex'}`}>
                       
                       {/* Active count ribbon */}
                       <div className="p-5 bg-slate-50/50 border-b border-slate-100 flex items-center justify-between">
@@ -1198,7 +1234,7 @@ export default function DashboardVendedor({
                   </div>
 
                   {/* Stock listings table */}
-                  <div className="overflow-x-auto border border-slate-150 rounded-2xl">
+                  <div className="hidden lg:block overflow-x-auto border border-slate-150 rounded-2xl">
                     <table className="w-full text-left border-collapse text-xs md:text-sm">
                       <thead>
                         <tr className="bg-slate-50 border-b border-slate-150/80 font-bold font-mono text-slate-400 uppercase tracking-widest text-[10px]">
@@ -1260,6 +1296,49 @@ export default function DashboardVendedor({
                           })}
                       </tbody>
                     </table>
+                  </div>
+
+                  {/* Stock listings mobile block */}
+                  <div className="lg:hidden space-y-3.5">
+                    {products
+                      .filter(p => p.name.toLowerCase().includes(search.toLowerCase()) || p.sku.toLowerCase().includes(search.toLowerCase()))
+                      .map(product => {
+                        const localPrice = activeStore?.prices[product.id] !== undefined ? activeStore.prices[product.id] : product.price;
+                        const localStock = activeStore?.stock[product.id] !== undefined ? activeStore.stock[product.id] : 0;
+                        const isOutOfStock = localStock <= 0;
+                        const isLowStock = localStock > 0 && localStock <= product.minStock;
+
+                        return (
+                          <div key={product.id} className="bg-slate-50 border border-slate-200/80 p-4 rounded-2xl flex flex-col justify-between gap-3 shadow-xs">
+                            <div className="flex items-center gap-3">
+                              <span className="text-3xl bg-white p-2.5 rounded-2xl border border-slate-100 shrink-0 select-none">{product.emoji}</span>
+                              <div className="min-w-0">
+                                <h4 className="font-extrabold text-slate-800 text-xs md:text-sm truncate leading-tight">{product.name}</h4>
+                                <p className="text-[10px] font-mono font-bold text-slate-400 mt-0.5 uppercase tracking-wider">sku • {product.sku}</p>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between pt-3 border-t border-slate-200/60 font-mono text-xs">
+                              <div>
+                                <span className="text-[10px] font-bold text-slate-400 block uppercase tracking-tight">Precio de Evento</span>
+                                <span className="font-black text-slate-900 text-sm">${localPrice.toFixed(2)}</span>
+                              </div>
+                              <div className="text-right flex flex-col items-end">
+                                <span className="text-[10px] font-bold text-slate-400 block uppercase tracking-tight mb-1">Stock Disponible</span>
+                                <span className={`px-2 py-1 rounded-lg text-xs font-black leading-none inline-block ${
+                                  isOutOfStock 
+                                    ? 'bg-red-50 text-red-550 font-extrabold' 
+                                    : isLowStock 
+                                      ? 'bg-amber-50 text-amber-550 border border-amber-100' 
+                                      : 'bg-emerald-50 text-emerald-800'
+                                }`}>
+                                  {localStock} uds.
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
                   </div>
                 </div>
 
